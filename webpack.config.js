@@ -1,31 +1,45 @@
-var webpack = require('webpack')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-	devtool: 'cheap-module-source-map',
-	entry: __dirname + '/app/main.js',
-	output: {
-		path:__dirname + '/public',
-		filename: "bundle.js"
-	},
-	module: {
-		loaders: [
-			{ test: /\.css$/, loader: "style-loader!css-loader?modules" },
-			{ test: /\.json$/, loader: "json-loader" },
-			{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
-		]
-	},
-	plugins: [
-		new webpack.BannerPlugin('菜鸟 教程 webpack教程'),
-		new HtmlWebpackPlugin({
-			template: __dirname + '/app/index.tmpl.html'
-		}),
-		new webpack.HotModuleReplacementPlugin()
-	],
-	devServer: {
-		contentBase: './build',
-		historyApiFallback: true,
-		inline: true,
-		hot: true
-	}
+    entry: './src/index.js',
+    output: {
+        path: path.resolve( __dirname, 'dist'),
+        filename: 'index.js',
+    },
+    module : {
+        rules: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: ['babel-loader']
+        },
+        {
+            test: /\.html$/,
+            use: 'html-loader'
+        },
+        {
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader']
+        },
+        {
+            test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
+            use: [
+                {
+                    loader: 'url-loader',
+                    options: {
+                        limit: 10000
+                    }
+                }
+            ]
+        }]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './src/index.html',
+        })
+    ],
+    devServer: {
+        port: 8100,
+        historyApiFallback: true
+    }
 }
