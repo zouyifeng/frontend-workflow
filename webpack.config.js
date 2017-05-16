@@ -6,6 +6,8 @@ module.exports = {
     output: {
         path: path.resolve( __dirname, 'dist'),
         filename: 'index.js',
+        chunkFilename: '[id].js?[chunkhash]',
+        publicPath: '/assets/'
     },
     module : {
         rules: [{
@@ -40,6 +42,8 @@ module.exports = {
     ],
     devServer: {
         port: 8100,
-        historyApiFallback: true
+        historyApiFallback: {
+            index: '/assets/'
+        }
     }
 }
