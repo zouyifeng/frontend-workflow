@@ -10,7 +10,7 @@ module.exports = {
 	},
 	module: {
 		loaders: [
-			{ test: /\.css$/, loader: ExtractTextPlugin.extract({ fallback: "style-loader", use: "!css-loader?modules"})},
+			{ test: /\.css$/, loader: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader?modules"})},
 			{ test: /\.json$/, loader: "json-loader" },
 			{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
 		]
@@ -21,7 +21,7 @@ module.exports = {
 			template: __dirname + '/app/index.tmpl.html'
 		}),
 		new webpack.optimize.OccurrenceOrderPlugin(),
-		new ExtractTextPlugin("style.css")
+		new ExtractTextPlugin("[name]-[hash].css")
 	],
 	devServer: {
 		contentBase: './build',
