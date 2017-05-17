@@ -2,8 +2,8 @@
 import g from './global'
 
 // 引入页面文件
-// import foo from './views/foo'
-// import bar from './views/bar'
+import foo from './views/foo'
+import bar from './views/bar'
 
 const routes = {
   '/foo': foo,
@@ -34,14 +34,9 @@ class Router {
   // 加载path路径的页面
   load(path) {
     // 创建页面实例
-    // const view = new routes[path]()
+    const view = new routes[path]()
     // 调用页面方法, 把页面加载到document.body中
-    // view.mount(document.body)
-    import( './views' + path + '/index.js').then(module => {
-      const View = module.default
-      const view = new View()
-      view.mount(document.body)
-    })
+    view.mount(document.body)
   }
 }
 
